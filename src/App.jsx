@@ -1,6 +1,7 @@
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import earthTextureImage from './assets/earth.png';
 import './App.css'
 
 function App() {
@@ -13,17 +14,31 @@ function App() {
     
     //    perspective camera                    FOV, Aspect ratio,                          near, far (elements stop rendngering when outisde of near/far range)
     const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-    
+
     //    renders our ojects into scene
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
     // add renderer to DOM
     currentMount.appendChild(renderer.domElement);
 
-    const sphere_geometry = new THREE.SphereGeometry(5, 10, 10)
-    const material = new THREE.MeshBasicMaterial({color: 0x87CEFA, wireframe: true});
+    // ambient lighting
+    const ambLight = new THREE.AmbientLight(0xFFFFFF, 0.1)
+    scene.add(ambLight)
+
+    // directional lighting
+    const sunLight = new THREE.DirectionalLight(0xffffff, 2); // Main sun directional light
+    sunLight.position.set(10, 5, 10)
+    scene.add(sunLight);
+
+    // init textureloader
+    const textureLoader = new THREE.TextureLoader()
+    const earthTexture = textureLoader.load(earthTextureImage)
+
+    //                                              (radius, widthSegments, heightSegments)
+    const sphereGeometry = new THREE.SphereGeometry(1,      32,             32)
+    const material = new THREE.MeshStandardMaterial({map: earthTexture, roughness: 1, color: 0xFFFFFF, wireframe: false});
     // create mesh, object that takes in a geometry and material and can be inserted into our scene and moved around
-    const sphere = new THREE.Mesh(sphere_geometry, material);
+    const sphere = new THREE.Mesh(sphereGeometry, material);
     scene.add(sphere);
 
     //create a blue LineBasicMaterial
@@ -57,8 +72,7 @@ function App() {
     function animate(time) {
       // animate rotation
       controls.update()
-      sphere.rotation.x = time / 2000; // bigger number slower rotation
-      sphere.rotation.y = time / 2000;
+      sphere.rotation.y = time / 5000; // bigger number slower rotation
       
       // update rendering
       renderer.render(scene, camera);
@@ -69,11 +83,16 @@ function App() {
     // 5. Cleanup
     return () => {
       renderer.setAnimationLoop(null);
-      controls.dispose(); // Removes event listeners attached to the canvas
+      controls.dispose();
+      
+      sphereGeometry.dispose();
+      material.dispose();
+      earthTexture.dispose();
+      renderer.dispose();
+
       if (currentMount.contains(renderer.domElement)) {
         currentMount.removeChild(renderer.domElement);
       }
-      renderer.dispose();
     };
   }, []);
 
