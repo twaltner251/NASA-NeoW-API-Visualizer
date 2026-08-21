@@ -2,6 +2,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import earthTextureImage from './assets/earth.png';
+import cloudTextureImage from './assets/clouds.png';
 import './App.css'
 
 function App() {
@@ -34,12 +35,30 @@ function App() {
     const textureLoader = new THREE.TextureLoader()
     const earthTexture = textureLoader.load(earthTextureImage)
 
-    //                                              (radius, widthSegments, heightSegments)
-    const sphereGeometry = new THREE.SphereGeometry(1,      32,             32)
-    const material = new THREE.MeshStandardMaterial({map: earthTexture, roughness: 1, color: 0xFFFFFF, wireframe: false});
+    // constants to define geometry of earth and clouds easily
+    const radius = 1;
+    const segments = 256;
+
+    // Earth                                       (radius, widthSegments, heightSegments)
+    const earthGeometry = new THREE.SphereGeometry(radius,  segments,      segments)
+    const earthMaterial = new THREE.MeshStandardMaterial({map: earthTexture, roughness: 1, color: 0xFFFFFF, wireframe: false});
     // create mesh, object that takes in a geometry and material and can be inserted into our scene and moved around
-    const sphere = new THREE.Mesh(sphereGeometry, material);
-    scene.add(sphere);
+    const earth = new THREE.Mesh(earthGeometry, earthMaterial);
+    scene.add(earth);
+
+    const cloudTexture = textureLoader.load(cloudTextureImage)
+
+    // Clouds                                     (radius,        widthSegments, heightSegments)
+    const cloudGeometry = new THREE.SphereGeometry(radius * 1.01, segments,      segments)
+    // create mesh, object that takes in a geometry and material and can be inserted into our scene and moved around
+    const cloudMaterial = new THREE.MeshStandardMaterial({
+      alphaMap: cloudTexture, // use alphaMap to be transparent based on brightness
+      transparent: true,
+      depthWrite: false,
+      // blending: THREE.AdditiveBlending // makes clouds look bright and realistic
+    });
+    const clouds = new THREE.Mesh(cloudGeometry, cloudMaterial);
+    scene.add(clouds);
 
     //create a blue LineBasicMaterial
     const linematerial = new THREE.LineBasicMaterial( { color: 0x0000ff } );
@@ -72,7 +91,8 @@ function App() {
     function animate(time) {
       // animate rotation
       controls.update()
-      sphere.rotation.y = time / 5000; // bigger number slower rotation
+      earth.rotation.y = time / 6000; // bigger number slower rotation
+      clouds.rotation.y = time / 4100; // bigger number slower rotation
       
       // update rendering
       renderer.render(scene, camera);
@@ -85,8 +105,8 @@ function App() {
       renderer.setAnimationLoop(null);
       controls.dispose();
       
-      sphereGeometry.dispose();
-      material.dispose();
+      earthGeometry.dispose();
+      earthMaterial.dispose();
       earthTexture.dispose();
       renderer.dispose();
 
