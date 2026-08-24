@@ -1,5 +1,24 @@
 # Simple Nasa NeoW API App:
-todo: make sure api key isnt exposed before publishing to netlify and etc...
+added tilt of earth y-axis
+project uses lunar units for distance and sizing of objects but uses a constant
+constants.js holds constants for ease of access const artificialVisualizingScaler = 500;
+randomized positions for asteroids via polar coords switched stars population to polar coords
+
+// Deemed more efficient as can initialize Star within certain range of distance from origin 
+        // so don't waste compute on regeneration faulty stars, HOWEVER, due to the nature of spherical
+        // coordinates there is a bias in the distribution of the stars around the z-axis, so we 
+        // sacrifice slight performance loss for a better end result and evenly distributed stars by 
+        // using XYZ coords to populate them
+
+ ideally use NASA's ephemeris generator tool but JPL is down so can't will update later had to do randomized coords due to JPL websites being down for some reason?
+
+todo:
+asteroid coords?
+remove asteroid duplicates
+star instantiation via vectors
+moon?
+make sure api key isnt exposed before publishing to netlify and etc...
+asteroid rotations
 
 # Sources:
 ## NASA NeoW's API:

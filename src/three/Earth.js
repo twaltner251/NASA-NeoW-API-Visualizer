@@ -1,14 +1,20 @@
 import * as THREE from 'three';
 import earthTextureImage from '../assets/earth.png';
 import cloudTextureImage from '../assets/clouds.png';
+import { EARTH_TILT, LUNAR_EARTH_RADIUS, EARTH_VISUALIZING_SCALER } from './Constants.js';
 
 // creates earth class with clouds and white line for orbiting axis
 export default class Earth {
     constructor(scene, textureLoader) {
-        this.scene = scene
+        this.scene = scene;
         
+        // create group to tilt rotation axis of Earth
+        const group = new THREE.Group();
+        const tiltAxis = new THREE.Vector3(-1, 0, 0);
+        group.rotateOnAxis(tiltAxis, THREE.MathUtils.degToRad(EARTH_TILT));
+
         // constants to define geometry of earth and clouds easily
-        const radius = 1;
+        const radius = LUNAR_EARTH_RADIUS * EARTH_VISUALIZING_SCALER;
         const segments = 256;
 
         // load earth texture
@@ -19,7 +25,7 @@ export default class Earth {
         const earthMaterial = new THREE.MeshStandardMaterial({map: earthTexture, roughness: 1, color: 0xFFFFFF, wireframe: false});
         // create mesh, object that takes in a geometry and material and can be inserted into our scene and moved around
         this.earth = new THREE.Mesh(earthGeometry, earthMaterial);
-        this.scene.add(this.earth);
+        group.add(this.earth)
         
         // load cloud texture
         const cloudTexture = textureLoader.load(cloudTextureImage)
@@ -34,7 +40,7 @@ export default class Earth {
             // blending: THREE.AdditiveBlending // makes clouds look bright and realistic
         });
         this.clouds = new THREE.Mesh(cloudGeometry, cloudMaterial);
-        this.scene.add(this.clouds);
+        group.add(this.clouds);
 
         // Axis
         const lineMaterial = new THREE.LineBasicMaterial({color: 0xffffff})
@@ -43,7 +49,10 @@ export default class Earth {
         points.push( new THREE.Vector3( 0, -1.5 * radius, 0 ) ); // South axis end
         const lineGeometry = new THREE.BufferGeometry().setFromPoints(points)
         const line = new THREE.Line(lineGeometry, lineMaterial)
-        this.scene.add(line)
+        group.add(line)
+
+        // add entire group to scene
+        this.scene.add(group)
 
     }
 

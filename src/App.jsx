@@ -1,12 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {fetchAPIData} from './api/NasaAPI.js'
 import ThreeCanvas from './components/ThreeCanvas.jsx'
 import './App.css'
+import AsteroidModal from './components/AsteroidModal.jsx';
 
 function App() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [date, setDate] = useState(null);
+  const [selectedAsteroid, setSelectedAsteroid] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,7 +17,7 @@ function App() {
       setError(false)
 
       try {
-        const data = await fetchAPIData()
+        const {data, date} = await fetchAPIData()
         
         if (!data) { // if data is null, aka error as we specified in ./api/NasaAPI.js
           setError(true)
@@ -22,7 +25,10 @@ function App() {
         }
 
         // as long as we have data that means we successfully retrieved data from Nasa API and can assign it to our variable
-        setData(data)
+        setData(data.near_earth_objects[date]) // go deeper by two layers into object to only retrieve data we need for app
+        
+        // assign date
+        setDate(date)
 
       } catch(error) {
         console.log(error);
@@ -42,7 +48,7 @@ function App() {
   return (
     <>
       {loading && ( // loading screen
-        <div>
+        <div id='loading'>
           <i className="fa-solid fa-gear"></i>
         </div>
       )}
@@ -54,14 +60,14 @@ function App() {
       )}
 
       {data && ( // pass down data to canvas
-        <ThreeCanvas data={data}/>
+        <ThreeCanvas data={data} setSelectedAsteroid={setSelectedAsteroid}/>
+      )}
+
+      {data && (
+        <AsteroidModal selectedAsteroid={selectedAsteroid}/>
       )}
 
     </>
-    
-    
-
-    
   )
 }
 
