@@ -14,7 +14,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      setError(false)
+      setError(false) 
 
       try {
         const {data, date} = await fetchAPIData()
