@@ -3,7 +3,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import Earth from './Earth';
 import AsteroidManager from './AsteroidManager.js';
 import Stars from './Stars.js';
-import { EARTH_VISUALIZING_SCALER, LUNAR_EARTH_RADIUS, STARS_INNER_BOUND, STARS_OUTER_BOUND } from './Constants.js';
+import { STARS_INNER_BOUND, STARS_OUTER_BOUND } from './Constants.js';
 
 // handles camera, lighting, and inserting all of our ThreeJS objects onto the canvas
 export default class SceneManager {
@@ -11,7 +11,7 @@ export default class SceneManager {
         //    create scene
         this.scene = new THREE.Scene();
 
-        //    perspective camera                    FOV, Aspect ratio,                    near, far (elements stop rendngering when outisde of near/far range)
+        //    perspective camera                    FOV, Aspect ratio,                         near, far (elements stop rendngering when outisde of near/far range)
         this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
         this.camera.position.x = 20; // number is x value
 
@@ -24,6 +24,7 @@ export default class SceneManager {
         this.controls.enableDamping = true; // smooth deceleration
         this.controls.dampingFactor = 0.05;
         this.controls.maxDistance = STARS_INNER_BOUND;
+        this.controls.minDistance = 3;
 
         // ambient lighting
         const ambLight = new THREE.AmbientLight(0xffffff, 0.1)

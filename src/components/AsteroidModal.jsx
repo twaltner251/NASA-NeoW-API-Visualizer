@@ -16,16 +16,16 @@ export default function AsteroidModal(props) {
         );
     }
 
-    // console.log(selectedAsteroid)
+    console.log(selectedAsteroid)
 
     const close_approach_data = selectedAsteroid.close_approach_data['0']
     const miss_distance_km = close_approach_data.miss_distance.kilometers;
     const miss_distance_miles = close_approach_data.miss_distance.miles;
-    // console.log('distance km:', miss_distance_km, 'distance miles', miss_distance_miles);
+    console.log('distance km:', miss_distance_km, 'distance miles', miss_distance_miles);
 
     const relative_velocity_km = close_approach_data.relative_velocity.kilometers_per_hour;
     const relative_velocity_miles = close_approach_data.relative_velocity.miles_per_hour;
-    // console.log('relative velocity km:', relative_velocity_km, 'relative velocity miles', relative_velocity_miles);
+    console.log('relative velocity km:', relative_velocity_km, 'relative velocity miles', relative_velocity_miles);
 
     const estimated_diameter = selectedAsteroid.estimated_diameter;
     const min_diameter_meters = estimated_diameter.meters.estimated_diameter_min;
@@ -36,13 +36,13 @@ export default function AsteroidModal(props) {
     const max_diameter_feet = estimated_diameter.feet.estimated_diameter_max;
     const avg_diameter_feet = ((max_diameter_feet + min_diameter_feet) / 2);
 
-    // console.log('diameter (meters): max:', max_diameter_meters, 'min:', min_diameter_meters, 'avg:', avg_diameter_meters);
-    // console.log('diameter (feet): max:', max_diameter_feet, 'min:', min_diameter_feet, 'avg:', avg_diameter_feet);
+    console.log('diameter (meters): max:', max_diameter_meters, 'min:', min_diameter_meters, 'avg:', avg_diameter_meters);
+    console.log('diameter (feet): max:', max_diameter_feet, 'min:', min_diameter_feet, 'avg:', avg_diameter_feet);
 
     const name = selectedAsteroid.name;
     const id = selectedAsteroid.id;
     const is_hazardous = selectedAsteroid.is_potentially_hazardous_asteroid;
-    // console.log(`Name: ${name}, ID: ${id}, Potentially Hazardous: ${is_hazardous}`);
+    console.log(`Name: ${name}, ID: ${id}, Potentially Hazardous: ${is_hazardous}`);
 
     return (
         <>
