@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useState } from 'react'
 import {fetchAPIData} from './api/NasaAPI.js'
 import ThreeCanvas from './components/ThreeCanvas.jsx'
+import HUD from './components/HUD.jsx'
 import './App.css'
 import AsteroidModal from './components/AsteroidModal.jsx';
 
 function App() {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [date, setDate] = useState(null);
   const [selectedAsteroid, setSelectedAsteroid] = useState(null);
@@ -59,7 +60,7 @@ function App() {
         </div>
       )}
 
-      {data && ( // pass down data to canvas
+      {data && ( // pass down data and callback function to canvas
         <ThreeCanvas data={data} setSelectedAsteroid={setSelectedAsteroid}/>
       )}
 

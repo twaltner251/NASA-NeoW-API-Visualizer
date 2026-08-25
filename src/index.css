@@ -1,0 +1,53 @@
+body {
+    background-color: black;
+    margin: 0; /* remove default browser margins so black covers the whole screen */
+    color: white; /* make error messages visible */
+    font-family: 'Press Start 2P', system-ui;
+    font-size: small;
+}
+
+/* center loading icon on screen */
+#loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: black;
+    font-size: 3rem; 
+}
+  
+/* rotate gear icon */
+#loading i {
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.asteroid-modal {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    z-index: 10; /* Higher number puts it in front of the canvas */
+
+    /* Optional: Styling to make it look like a readable modal */
+    background-color: rgba(21, 18, 18, 0.9);
+    color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(50, 37, 124, 0.5);
+    animation: bob 2s infinite;
+}
+
+@keyframes bob {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}

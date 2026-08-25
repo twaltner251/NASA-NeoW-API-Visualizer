@@ -19,6 +19,7 @@ star instantiation via vectors
 moon?
 make sure api key isnt exposed before publishing to netlify and etc...
 asteroid rotations
+// todo popul menu for asteroids as well as scroll lunar distance and camera x y z position labeled in bottom corner or something in cool font
 
 # Sources:
 ## NASA NeoW's API:
