@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import Earth from './Earth';
+import Earth from './Earth.js';
 import AsteroidManager from './AsteroidManager.js';
 import Stars from './Stars.js';
 import { STARS_INNER_BOUND, STARS_OUTER_BOUND } from './Constants.js';
