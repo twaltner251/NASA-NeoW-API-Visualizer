@@ -6,6 +6,18 @@ body {
     font-size: small;
 }
 
+@media (max-width: 600px) {
+    body {
+        font-size: xx-small; /* adjust text size for mobile devices */
+        line-height: 1.5;
+    }
+
+    .asteroid-modal {
+        left: 0!important;
+        max-width: 100vw!important;
+    }
+}
+
 /* center loading icon on screen */
 #loading {
     position: fixed;
@@ -33,8 +45,8 @@ body {
 
 .asteroid-modal {
     position: absolute;
-    bottom: 20px;
-    left: 20px;
+    bottom: 1rem;
+    left: 1rem;
     z-index: 10; /* Higher number puts it in front of the canvas */
 
     /* Optional: Styling to make it look like a readable modal */
