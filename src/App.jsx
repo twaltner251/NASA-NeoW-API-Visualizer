@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import {fetchAPIData} from './api/NasaAPI.js'
-import ThreeCanvas from './components/ThreeCanvas.jsx'
-import HUD from './components/HUD.jsx'
+import ThreeCanvas from './components/ThreeCanvas.jsx'ç
 import './App.css'
 import AsteroidModal from './components/AsteroidModal.jsx';
 
