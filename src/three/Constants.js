@@ -8,7 +8,7 @@ export const ASTEROID_VISUALIZING_SCALER = 50000; // artificially scales all obj
 export const EARTH_TILT = 23.5;
 export const EARTH_RADIUS = 6371 * KM_SCALING_FACTOR; // earth radius = 6,371km
 
-export const STAR_COUNT = 7000;
+export const STAR_COUNT = 5000;
 export const STAR_SIZE = 100;
 export const STARS_INNER_BOUND = 40000;
 export const STARS_OUTER_BOUND = 42000; 
