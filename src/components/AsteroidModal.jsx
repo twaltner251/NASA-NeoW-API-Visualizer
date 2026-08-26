@@ -50,9 +50,9 @@ export default function AsteroidModal(props) {
                 <h1>Asteroid Name: {name}</h1>
                 <p>ID: {id}</p>
                 <p>Potentially Hazardous: {is_hazardous ? 'Yes' : 'No'}</p>
-                <p>Distance From Earth: {miss_distance_km}km, {miss_distance_miles}mi</p>
-                <p>Estimated Avg Diameter: {avg_diameter_meters}m, {avg_diameter_feet}ft</p>
-                <p>Relative Velocity: {relative_velocity_km}km/hr {relative_velocity_miles}mi/hr</p>
+                <p>Distance From Earth: {Math.round(miss_distance_km)}km, {Math.round(miss_distance_miles)}mi</p>
+                <p>Estimated Avg Diameter: {Math.round(avg_diameter_meters)}m, {Math.round(avg_diameter_feet)}ft</p>
+                <p>Relative Velocity: {Math.round(relative_velocity_km)}km/hr {Math.round(relative_velocity_miles)}mi/hr</p>
             </div>
         </>
     );
