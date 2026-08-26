@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import asteroidTextureImage from '../assets/asteroid.png';
-import { ASTEROID_VISUALIZING_SCALER, KM_TO_LUNAR, ASTEROID_HALO_RADIUS } from './Constants.js';
+import { ASTEROID_VISUALIZING_SCALER, KM_SCALING_FACTOR, ASTEROID_HALO_RADIUS } from './Constants.js';
 
 // upon update() takes asteroid api data, transfers into coords and plots them, aka asteroid radius, coordinates, velocity, etc
 export default class AsteroidManager {
@@ -22,7 +22,7 @@ export default class AsteroidManager {
             // avg radius * arbritrary_visual_scaler => resize asteroids arbritrarily so are visible  
             const radius = (
                 value.estimated_diameter.kilometers.estimated_diameter_max - value.estimated_diameter.kilometers.estimated_diameter_min
-                ) * KM_TO_LUNAR / 2 * ASTEROID_VISUALIZING_SCALER;
+                ) * KM_SCALING_FACTOR / 2 * ASTEROID_VISUALIZING_SCALER;
             const segments = 256;
     
             // load earth texture
@@ -41,7 +41,7 @@ export default class AsteroidManager {
             // create mesh, object that takes in a geometry and material and can be inserted into our scene and moved around
             const asteroid = new THREE.Mesh(asteroidGeometry, asteroidMaterial);
             
-            const distance = value.close_approach_data["0"].miss_distance.lunar;
+            const distance = value.close_approach_data["0"].miss_distance.kilometers * KM_SCALING_FACTOR;
 
             // calculate a random position based off of distance since Nasa JPL API is down...
             const randomPos = new THREE.Vector3().randomDirection(); // generate unit vector in random direction
@@ -63,7 +63,7 @@ export default class AsteroidManager {
             this.scene.add(asteroid);
 
             // add transparent hitbox to asteroid
-            const hitBoxGeometry = new THREE.SphereGeometry(ASTEROID_HALO_RADIUS, segments, segments);
+            const hitBoxGeometry = new THREE.SphereGeometry(Math.max(ASTEROID_HALO_RADIUS, radius * 1.5), segments, segments);
             const hitBoxMaterial = new THREE.MeshBasicMaterial({ visible: false });
             const hitBoxMesh = new THREE.Mesh(hitBoxGeometry, hitBoxMaterial);
             hitBoxMesh.position.copy(randomPos)
@@ -74,12 +74,12 @@ export default class AsteroidManager {
             
             this.scene.add(hitBoxMesh)
             
-           // create a ring effect around the asteroid
-            const haloGeometry = new THREE.RingGeometry(ASTEROID_HALO_RADIUS * 0.8, ASTEROID_HALO_RADIUS, 64);
+            // create a ring effect around the asteroid
+            const haloGeometry = new THREE.RingGeometry(Math.max(ASTEROID_HALO_RADIUS * 0.8, radius * 1.5 * 0.8), Math.max(ASTEROID_HALO_RADIUS, radius * 1.5), 64);
             const haloMaterial = new THREE.MeshBasicMaterial({
                 color: 0xFFFFE0,
                 transparent: true,
-                opacity: 0.3,
+                opacity: 0.5,
                 side: THREE.DoubleSide, 
             });
             const halo = new THREE.Mesh(haloGeometry, haloMaterial);
@@ -94,6 +94,8 @@ export default class AsteroidManager {
 
             this.scene.add(halo);
             
+            console.log(radius)
+
         });
     }
 }

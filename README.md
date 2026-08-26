@@ -1,3 +1,6 @@
+// change control max distance back from infinity
+// distance is to scale however sizes have been exaggerated. Earth is scaled 250times up, the halo around asteroids is the same size as the earth, however the asteroids inside are scaled up 50,000times. so another 200times additional from the Earth's 250x. really puts into perspective just how huge interplanetary objects are
+
 # Simple Nasa NeoW API App:
 added tilt of earth y-axis
 project uses lunar units for distance and sizing of objects but uses a constant

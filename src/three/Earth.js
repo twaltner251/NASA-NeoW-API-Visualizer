@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import earthTextureImage from '../assets/earth.png';
 import cloudTextureImage from '../assets/clouds.png';
-import { EARTH_TILT, LUNAR_EARTH_RADIUS, EARTH_VISUALIZING_SCALER } from './Constants.js';
+import { EARTH_TILT, EARTH_VISUALIZING_SCALER, EARTH_RADIUS } from './Constants.js';
 
 // creates earth class with clouds and white line for orbiting axis
 export default class Earth {
@@ -14,7 +14,7 @@ export default class Earth {
         group.rotateOnAxis(tiltAxis, THREE.MathUtils.degToRad(EARTH_TILT));
 
         // constants to define geometry of earth and clouds easily
-        const radius = LUNAR_EARTH_RADIUS * EARTH_VISUALIZING_SCALER;
+        const radius = EARTH_RADIUS * EARTH_VISUALIZING_SCALER;
         const segments = 256;
 
         // load earth texture
