@@ -6,7 +6,7 @@ export default function AsteroidModal(props) {
             <>
                 <div className='asteroid-modal'>
                     <h1>Asteroid Name: Earth?</h1>
-                    <p>ID: 000000</p>
+                    <p>ID: 0000001</p>
                     <p>Potentially Hazardous: Maybe?</p>
                     <p>Distance From Earth: 0km, 0mi</p>
                     <p>Estimated Avg Diameter: 12,742,000m, 41,804,461ft</p>
