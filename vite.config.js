@@ -6,5 +6,4 @@ export default defineConfig({
   esbuild: {
     drop: ['console', 'debugger'], /* remove all console.logs in production */
   },
-  base: '/NASA-NeoW-API-Visualizer/'
 })
