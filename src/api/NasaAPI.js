@@ -19,7 +19,12 @@ export const fetchAPIData = async () => {
 
         try { 
             const response = await fetch(url);
+            
+            if (!response.json) console.log('INVALID API KEY!'); // api key check
+
             const apiData = await response.json();
+
+
             localStorage.setItem(localKey, JSON.stringify(apiData));
             console.log("fetched today's data from API");
             

@@ -19,12 +19,12 @@ function App() {
       try {
         const {data, date} = await fetchAPIData()
         
-        // if data is null, aka error as we specified in ./api/NasaAPI.js, check if a near_earth_objects propery exists
-        if (!data || !data.near_earth_objects) { 
+        
+        if (!data) { // if data is null, aka error as we specified in ./api/NasaAPI.js, check if a near_earth_objects propery exists
           setError(true);
           setLoading(false); 
           return; 
-          
+
         }
 
         // as long as we have data that means we successfully retrieved data from Nasa API and can assign it to our variable
