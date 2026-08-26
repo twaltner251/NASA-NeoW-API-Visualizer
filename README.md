@@ -21,6 +21,7 @@
 * **Realistic Earth Rendering:** Features an equirectangular projected Earth texture with accurate y-axis tilt and atmospheric cloud layers.
 * **Immersive Starfield:** Features a custom-generated, evenly distributed background star system populated via unit coordinates.
 * **Orbit & Zoom Controls:** Allows user to orbit an selected object, zoom in & out, and has slight dampening to have smooth deceleration of camera to enhance user experience. 
+* **Dynamic Design for Mobile Users** The Asteroid modal becomes centered in the screen, the animation stops, text is smaller, and is transformed down on the Y-axis to ensure mobile users can still interact with the 3D scene while still seeing the info on their centered asteroid.
 
 
 ## Challenges & Learnings:
